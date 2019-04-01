@@ -1,6 +1,6 @@
-require './test_helper'
+require_relative 'test_helper'
 
-class StatTracker < MiniTest::Test
+class StatTrackerTest < MiniTest::Test
 
   def setup
     @stat_tracker = StatTracker.new
@@ -9,7 +9,5 @@ class StatTracker < MiniTest::Test
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
   end
-
-
 
 end
