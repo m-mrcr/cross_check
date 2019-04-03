@@ -16,22 +16,22 @@ class Game
               :venue_time_zone_offset,
               :venue_time_zone_tz
 
-  def initialize(games_data)
-    @game_id = games_data[:game_id]
-    @season = games_data[:season]
-    @type = games_data[:type]
-    @date_time = games_data[:date_time]
-    @away_team_id = games_data[:away_team_id]
-    @home_team_id = games_data[:home_team_id]
-    @away_goals = games_data[:away_goals].to_i
-    @home_goals = games_data[:home_goals].to_i
-    @outcome = games_data[:outcome]
-    @home_rink_side_start = games_data[:home_rink_side_start]
-    @venue = games_data[:venue]
-    @venue_link = games_data[:venue_link]
-    @venue_time_zone_id = games_data[:venue_time_zone_id]
-    @venue_time_zone_offset = games_data[:venue_time_zone_offset]
-    @venue_time_zone_tz = games_data[:venue_time_zone_tz]
+  def initialize(attributes)
+    @game_id = attributes[:game_id]
+    @season = attributes[:season]
+    @type = attributes[:type]
+    @date_time = attributes[:date_time]
+    @away_team_id = attributes[:away_team_id]
+    @home_team_id = attributes[:home_team_id]
+    @away_goals = attributes[:away_goals].to_i
+    @home_goals = attributes[:home_goals].to_i
+    @outcome = attributes[:outcome]
+    @home_rink_side_start = attributes[:home_rink_side_start]
+    @venue = attributes[:venue]
+    @venue_link = attributes[:venue_link]
+    @venue_time_zone_id = attributes[:venue_time_zone_id]
+    @venue_time_zone_offset = attributes[:venue_time_zone_offset]
+    @venue_time_zone_tz = attributes[:venue_time_zone_tz]
   end
 
 end
