@@ -22,4 +22,9 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of Game, @stat_tracker.games[0]
   end
 
+  def test_it_can_create_teams_from_csv_file
+    @stat_tracker.get_teams(@input)
+    assert_instance_of Team, @stat_tracker.games[0]
+  end
+
 end
