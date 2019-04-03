@@ -16,4 +16,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal [], @stat_tracker.stats
   end
 
+  def test_it_can_create_games_from_csv_file
+    assert_instance_of Game, @stat_tracker.games[0]
+  end
+
 end
