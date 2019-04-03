@@ -3,6 +3,7 @@ require_relative 'test_helper'
 class StatTrackerTest < MiniTest::Test
 
   def setup
+    @input = {games: './data/game_sample.csv'}
     @stat_tracker = StatTracker.new
   end
 
@@ -17,6 +18,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_create_games_from_csv_file
+    @stat_tracker.get_games(@input)
     assert_instance_of Game, @stat_tracker.games[0]
   end
 
