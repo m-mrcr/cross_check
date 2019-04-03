@@ -3,9 +3,10 @@ require_relative 'test_helper'
 class StatTrackerTest < MiniTest::Test
 
   def setup
-    @input = {games: './data/game_sample.csv',
-              teams: './data/team_sample.csv'}
     @stat_tracker = StatTracker.new
+    @input = {games: './data/game.csv',
+              teams: './data/team_info.csv',
+              game_teams: './data/game_teams_stats.csv'}
   end
 
   def test_it_exists
