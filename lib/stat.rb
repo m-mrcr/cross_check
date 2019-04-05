@@ -33,4 +33,5 @@ class Stat
     @giveaways = attributes[:giveaways]
     @takeaways = attributes[:takeaways]
 
-end
+  end
+end 
