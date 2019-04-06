@@ -14,6 +14,16 @@ module GameMethods
     total = @games.max_by{|game| (game.away_goals - game.home_goals).abs}
     (total.away_goals - total.home_goals).abs
   end
+
+  def percentage_home_wins
+   games_won = @games.find_all{|game| game.home_goals > game.away_goals}
+   (games_won.count.to_f / @games.count).round(2)
+  end
+
+  def percentage_visitor_wins
+    games_won = @games.find_all{|game| game.home_goals < game.away_goals}
+    (games_won.count.to_f / @games.count).round(2)
+  end
 # percentage_home_wins	Percentage of games that a home team has won (rounded to the nearest 100th)	Float
 # percentage_visitor_wins	Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
 # count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash

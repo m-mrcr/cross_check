@@ -33,13 +33,11 @@ class StatTrackerGameStatTest < MiniTest::Test
   end
 
   def test_it_can_calculate_percentage_home_wins
-    skip
-    assert_equal nil, @stat_tracker.percentage_home_wins
+    assert_equal 0.59, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_calculate_percentage_visitor_wins
-    skip
-    assert_equal nil, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.41, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_calculate_count_of_games_by_season
