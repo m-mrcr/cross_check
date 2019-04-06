@@ -25,3 +25,7 @@ end
 #     @games.push(game)
 #   end
 # end
+
+require 'csv'
+file1 = './data/stat_sample.csv'
+blah = CSV.read(file1, {headers: true}.merge(Hash.new))

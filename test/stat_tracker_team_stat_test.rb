@@ -16,6 +16,15 @@ class StatTrackerTeamStatTest < MiniTest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-
+  def test_it_can_show_team_info
+    expected = { "team_id" => "5",
+                 "franchise_id" => "17",
+                 "short_name" => "Pittsburgh",
+                 "team_name" => "Penguins",
+                 "abbreviation" => "PIT",
+                 "link" => "/api/v1/teams/5"
+               }
+    assert_equal expected, @stat_tracker.team_info("5")
+  end
 
 end

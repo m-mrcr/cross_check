@@ -9,7 +9,7 @@ require_relative 'league_methods'
 class StatTracker
   include GameMethods,
           LeagueMethods,
-          TeamMethods,
+          TeamMethods
 
   attr_reader :games,
               :teams,
@@ -29,21 +29,21 @@ class StatTracker
   end
 
   def get_games(input)
-    CSV.read(input[:games], {headers: true, header_converters: :symbol}).map do |row|
+    CSV.read(input[:games], {headers: true}).map do |row|
       game = Game.new(row)
       @games.push(game)
     end
   end
 
   def get_teams(input)
-    CSV.read(input[:teams], {headers: true, header_converters: :symbol}).map do |row|
+    CSV.read(input[:teams], {headers: true}).map do |row|
       team = Team.new(row)
       @teams.push(team)
     end
   end
 
   def get_stats(input)
-    CSV.read(input[:game_teams], {headers: true, header_converters: :symbol}).map do |row|
+    CSV.read(input[:game_teams], {headers: true}).map do |row|
       stat = Stat.new(row)
       @stats.push(stat)
     end
