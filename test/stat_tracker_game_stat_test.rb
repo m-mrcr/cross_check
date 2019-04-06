@@ -49,13 +49,15 @@ class StatTrackerGameStatTest < MiniTest::Test
   end
 
   def test_it_can_calculate_average_goals_per_game
-    skip
-    assert_equal nil, @stat_tracker.average_goals_per_game
+    assert_equal 5.72, @stat_tracker.average_goals_per_game
   end
 
   def test_it_can_calculate_average_goals_per_season
-    skip
-    assert_equal nil, @stat_tracker.average_goals_by_season
+    expected = {"20142015"=>4.83,
+                "20152016"=>5.75,
+                "20162017"=>6.0,
+                "20172018"=>6.2}
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
 end

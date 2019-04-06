@@ -31,10 +31,21 @@ module GameMethods
       hash
     end
   end
-# percentage_home_wins	Percentage of games that a home team has won (rounded to the nearest 100th)	Float
-# percentage_visitor_wins	Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
-# count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
-# average_goals_per_game	Average number of goals scored in a game across all seasons including both home and away goals (rounded to the nearest 100th)	Float
-# average_goals_by_season	Average number of goals scored in a game organized in a hash with season names (e.g. 20122013) as keys and a float representing the average number of goals in a game for that season as a key (rounded to the nearest 100th)	Hash
 
+  def average_goals_per_game
+    (@games.sum{|game| game.away_goals} + @games.sum{|game| game.home_goals}).fdiv(@games.count).round(2)
+  end
+
+  def average_goals_by_season
+    avgs = Hash.new
+    seasons = @games.group_by {|game| game.season}
+    seasons.each do |season|
+      totals = []
+      season[1].each do |game|
+        totals << game.away_goals + game.home_goals
+      end
+      avgs[season[0].to_s] = (totals.sum / totals.count.to_f).round(2)
+    end
+    return avgs
+  end
 end
