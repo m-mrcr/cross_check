@@ -41,8 +41,11 @@ class StatTrackerGameStatTest < MiniTest::Test
   end
 
   def test_it_can_calculate_count_of_games_by_season
-    skip
-    assert_equal nil, @stat_tracker.count_of_games_by_season
+    expected = {"20142015"=>6,
+                "20152016"=>12,
+                "20162017"=>9,
+                "20172018"=>5}
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_it_can_calculate_average_goals_per_game

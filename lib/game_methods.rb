@@ -24,6 +24,13 @@ module GameMethods
     games_won = @games.find_all{|game| game.home_goals < game.away_goals}
     (games_won.count.to_f / @games.count).round(2)
   end
+
+  def count_of_games_by_season
+    @games.inject(Hash.new(0)) do |hash, game|
+      hash[game.season.to_s] += 1
+      hash
+    end
+  end
 # percentage_home_wins	Percentage of games that a home team has won (rounded to the nearest 100th)	Float
 # percentage_visitor_wins	Percentage of games that a visitor has won (rounded to the nearest 100th)	Float
 # count_of_games_by_season	A hash with season names (e.g. 20122013) as keys and counts of games as values	Hash
