@@ -4,10 +4,12 @@ require_relative 'team'
 require_relative 'stat'
 require_relative 'game_methods'
 require_relative 'team_methods'
+require_relative 'league_methods'
 
 class StatTracker
   include GameMethods,
-          TeamMethods
+          LeagueMethods,
+          TeamMethods,
 
   attr_reader :games,
               :teams,
