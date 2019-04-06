@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/team_methods'
 
-class StatTrackerGameStatTest < MiniTest::Test
+class StatTrackerTeamStatTest < MiniTest::Test
 
   def setup
     game_path = './data/game_sample.csv'
