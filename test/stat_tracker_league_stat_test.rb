@@ -52,4 +52,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Capitals", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_can_return_team_with_winningest_team
+    assert_equal "Sharks", @stat_tracker.winningest_team
+  end
+
 end
