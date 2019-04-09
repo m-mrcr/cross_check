@@ -36,4 +36,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Capitals", @stat_tracker.worst_defense
   end
 
+  def test_can_return_team_with_highest_scoring_vistor
+    assert_equal "Capitals", @stat_tracker.highest_scoring_visitor
+  end
+
 end
