@@ -56,4 +56,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Sharks", @stat_tracker.winningest_team
   end
 
+  def test_can_return_team_with_best_fans
+    assert_equal "Predators", @stat_tracker.best_fans
+  end
+
 end
