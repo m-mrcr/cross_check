@@ -49,4 +49,8 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal "Predators", @stat_tracker.favorite_opponent("5")
   end
 
+  def test_it_can_show_the_rival_of_a_single_team
+    assert_equal "Sharks", @stat_tracker.rival("5")
+  end
+
 end
