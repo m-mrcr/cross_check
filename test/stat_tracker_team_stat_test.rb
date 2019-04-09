@@ -69,8 +69,49 @@ class StatTrackerTeamStatTest < MiniTest::Test
   end
 
   def test_it_can_show_seasonal_summary_for_a_single_team
-    skip
-    assert_equal nil, @stat_tracker.seasonal_summary("5")
+
+    expected = {"20142015"=>{:postseason=>{:win_percentage=>0.0,
+                                           :total_goals_scored=>0,
+                                           :total_goals_against=>0,
+                                           :average_goals_scored=>0.0,
+                                           :average_goals_against=>0.0},
+                                           :regular_season=>{:win_percentage=>0.33,
+                                                             :total_goals_scored=>4,
+                                                             :total_goals_against=>5,
+                                                             :average_goals_scored=>1.33,
+                                                             :average_goals_against=>1.67}},
+                "20152016"=>{:postseason=>{:win_percentage=>0.33,
+                                           :total_goals_scored=>7,
+                                           :total_goals_against=>8,
+                                           :average_goals_scored=>2.33,
+                                           :average_goals_against=>2.67},
+                                           :regular_season=>{:win_percentage=>1.0,
+                                                             :total_goals_scored=>6,
+                                                             :total_goals_against=>4,
+                                                             :average_goals_scored=>3.0,
+                                                             :average_goals_against=>2.0}},
+                "20162017"=>{:postseason=>{:win_percentage=>0.67,
+                                           :total_goals_scored=>10,
+                                           :total_goals_against=>4,
+                                           :average_goals_scored=>3.33,
+                                           :average_goals_against=>1.33},
+                                           :regular_season=>{:win_percentage=>0.67,
+                                                             :total_goals_scored=>12,
+                                                             :total_goals_against=>14,
+                                                             :average_goals_scored=>4.0,
+                                                             :average_goals_against=>4.67}},
+                "20172018"=>{:postseason=>{:win_percentage=>0.0,
+                                           :total_goals_scored=>0,
+                                           :total_goals_against=>0,
+                                           :average_goals_scored=>0.0,
+                                           :average_goals_against=>0.0},
+                                           :regular_season=>{:win_percentage=>0.5,
+                                                             :total_goals_scored=>8,
+                                                             :total_goals_against=>7,
+                                                             :average_goals_scored=>4.0,
+                                                             :average_goals_against=>3.5}}}
+
+    assert_equal expected, @stat_tracker.seasonal_summary("5")
   end
 
 end

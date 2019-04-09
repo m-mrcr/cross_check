@@ -1,5 +1,6 @@
 module TeamMethods
 
+# Primary Methods
   def team_info(input)
     team = @teams.find {|t| t.team_id == input}
     info = Hash.new
@@ -185,14 +186,38 @@ module TeamMethods
 
   def seasonal_summary(input)
     hash = Hash.new
+    season_games(input).each do |season, games|
+      regular = []
+      post = []
+      games.each do |game|
+        regular.push(game) if game.type == "R"
+        post.push(game) if game.type == "P"
+      end
 
+    hash[season] = { :postseason => {:win_percentage => win_percentage(input, post),
+                                    :total_goals_scored => total_goals_scored(input, post),
+                                    :total_goals_against => total_goals_against(input, post),
+                                    :average_goals_scored => average_goals_scored(input, post),
+                                    :average_goals_against => average_goals_against(input, post)},
+                 :regular_season => {:win_percentage => win_percentage(input, regular),
+                                    :total_goals_scored => total_goals_scored(input, regular),
+                                    :total_goals_against => total_goals_against(input, regular),
+                                    :average_goals_scored => average_goals_scored(input, regular),
+                                    :average_goals_against => average_goals_against(input, regular)} }
+    end
+    hash
   end
-#---
+
+# HELPER METHODS
+  def percentage(partial, total)
+    partial.count.to_f / (total.count.nonzero? || 1)
+  end
+
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
     count_of_wins_by_season(input).map do |season, game|
       percent_of_wins_by_season[season] =
-      (game.count.to_f/count_of_games_by_season[season]).round(2)
+      (game.count.to_f/count_of_team_games_by_season(input)[season])
     end
     percent_of_wins_by_season
   end
@@ -205,11 +230,12 @@ module TeamMethods
     all_games(input).group_by{|game| game.season}
   end
 
-  def count_of_games_by_season(input)
+  def count_of_team_games_by_season(input)
     count_by_season = Hash.new
     games_by_season(input).map do |season, games|
       count_by_season[season] = games.count
     end
+    count_by_season
   end
 
   def games_won(input)
@@ -240,6 +266,56 @@ module TeamMethods
       end
     end
     all_opponents.uniq
+  end
+
+  def season_games(input)
+    all_games(input).group_by{|game|game.season}
+  end
+
+  def win_percentage(input, collection)
+    games_won = []
+    collection.each do |game|
+      if game.away_team_id == input && game.outcome.include?("away")
+        games_won.push(game)
+      elsif game.home_team_id == input && game.outcome.include?("home")
+        games_won.push(game)
+      end
+    end
+    percentage(games_won, collection).round(2)
+  end
+
+  def total_goals_scored(input, collection)
+    total = 0
+    collection.each do |game|
+      if game.away_team_id == input
+        total += game.away_goals
+      elsif game.home_team_id == input
+        total += game.home_goals
+      end
+    end
+    total
+  end
+
+  def total_goals_against(input, collection)
+    total = 0
+    collection.each do |game|
+      if game.away_team_id != input
+        total += game.away_goals
+      elsif game.home_team_id != input
+        total += game.home_goals
+      end
+    end
+    total
+  end
+
+  def average_goals_scored(input, collection)
+    (total_goals_scored(input, collection).to_f /
+    (collection.count.nonzero? || 1)).round(2)
+  end
+
+  def average_goals_against(input, collection)
+    (total_goals_against(input, collection).to_f /
+    (collection.count.nonzero? || 1)).round(2)
   end
 
 end
