@@ -44,6 +44,11 @@ module LeagueMethods
     final[0]
   end
 
+  def winningest_team
+    final = win_percentage_by_team.max_by{|team, percentage| percentage}
+    final[0]
+  end
+
   #---
 
   def teamnames(id)
@@ -129,6 +134,27 @@ module LeagueMethods
       average_home_goals_by_team[team.team_name] = average
     end
     average_home_goals_by_team
+  end
+
+  def win_percentage_by_team
+    win_percentage_by_team = Hash.new
+    @teams.each do |team|
+      relevant_stats = []
+      @stats.each do |stat|
+        if stat.team_id == team.team_id
+          relevant_stats.push(stat)
+        end
+      end
+      wins = []
+      relevant_stats.each do |stat|
+        if stat.won == "TRUE"
+          wins.push(stat)
+        end
+      end
+      final = (wins.count.to_f/relevant_stats.count).round(2)
+      win_percentage_by_team[team.team_name] = final
+    end
+    win_percentage_by_team
   end
 
 end
