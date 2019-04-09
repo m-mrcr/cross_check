@@ -16,6 +16,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-
+  def test_can_count_total_number_of_teams
+    assert_equal 4, @stat_tracker.count_of_teams
+  end
 
 end
