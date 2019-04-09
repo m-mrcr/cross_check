@@ -48,4 +48,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Predators", @stat_tracker.lowest_scoring_visitor
   end
 
+  def test_can_return_team_with_lowest_scoring_home_team
+    assert_equal "Capitals", @stat_tracker.lowest_scoring_home_team
+  end
+
 end
