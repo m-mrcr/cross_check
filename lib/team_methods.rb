@@ -26,6 +26,20 @@ module TeamMethods
     (games_won(input).count.to_f / all_games(input).count).round(2)
   end
 
+  def most_goals_scored(input)
+    a = all_games(input).max_by{|game|game.away_goals}
+    b = all_games(input).max_by{|game|game.home_goals}
+    result = 0
+    [a, b].each do |game|
+      if game.home_team_id == input && game.home_goals > game.away_goals
+        result = game.home_goals
+      elsif game.away_team_id == input && game.away_goals > game.home_goals
+        result = game.away_goals
+      end
+    end
+    result
+  end
+
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
     count_of_wins_by_season(input).map{|season, game|
