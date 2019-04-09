@@ -8,12 +8,12 @@ class Team
               :link
 
   def initialize(attributes)
-    @team_id = attributes[:team_id]
-    @franchise_id = attributes[:franchise_id]
-    @short_name = attributes[:short_name]
-    @team_name = attributes[:team_name]
-    @abbreviation = attributes[:abbreviation]
-    @link = attributes[:link]
+    @team_id = attributes["team_id"]
+    @franchise_id = attributes["franchiseId"]
+    @short_name = attributes["shortName"]
+    @team_name = attributes["teamName"]
+    @abbreviation = attributes["abbreviation"]
+    @link = attributes["link"]
   end
 
 end
