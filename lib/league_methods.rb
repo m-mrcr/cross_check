@@ -54,6 +54,16 @@ module LeagueMethods
     final[0].team_name
   end
 
+  def worst_fans
+    final_array = []
+    final = fans_by_team.each do |team, percentage|
+      if percentage < 0
+        final_array << team.team_name
+      end
+    end
+    final_array
+  end
+
   #---
 
   def teamnames(id)
