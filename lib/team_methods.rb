@@ -1,7 +1,7 @@
 module TeamMethods
 
-  def team_info(team_id)
-    team = @teams.find {|team| team.team_id == team_id}
+  def team_info(input)
+    team = @teams.find {|t| t.team_id == input}
     info = Hash.new
     info["team_id"] = team.team_id
     info["franchise_id"] = team.franchise_id

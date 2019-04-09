@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/team_methods'
 
 class StatTrackerTeamStatTest < MiniTest::Test
 
@@ -16,14 +15,13 @@ class StatTrackerTeamStatTest < MiniTest::Test
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
-  def test_it_can_show_team_info
+  def test_it_can_show_team_info_for_a_singular_team
     expected = { "team_id" => "5",
                  "franchise_id" => "17",
                  "short_name" => "Pittsburgh",
                  "team_name" => "Penguins",
                  "abbreviation" => "PIT",
-                 "link" => "/api/v1/teams/5"
-               }
+                 "link" => "/api/v1/teams/5"}
     assert_equal expected, @stat_tracker.team_info("5")
   end
 
