@@ -22,6 +22,10 @@ module TeamMethods
     final[0]
   end
 
+  def average_win_percentage(input)
+    (games_won(input).count.to_f / all_games(input).count).round(2)
+  end
+
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
     count_of_wins_by_season(input).map{|season, game|
@@ -34,11 +38,32 @@ module TeamMethods
     games_won(input).group_by{|game| game.season}
   end
 
+  def games_by_season(input)
+    all_games(input).group_by{|game| game.season}
+  end
+
   def count_of_games_by_season(input)
     count_by_season = Hash.new
     games_by_season(input).map do |season, games|
       count_by_season[season] = games.count
     end
   end
+
+  def games_won(input)
+    games_won = []
+    all_games(input).each do |game|
+      if game.away_team_id == input && game.outcome.include?("away")
+        games_won.push(game)
+      elsif game.home_team_id == input && game.outcome.include?("home")
+        games_won.push(game)
+      end
+    end
+    games_won
+  end
+
+  def all_games(input)
+    @games.select do |game|
+      game.away_team_id == input || game.home_team_id == input
+    end
 
 end
