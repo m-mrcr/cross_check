@@ -68,4 +68,9 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal expected, @stat_tracker.head_to_head("5")
   end
 
+  def test_it_can_show_seasonal_summary_for_a_single_team
+    skip
+    assert_equal nil, @stat_tracker.seasonal_summary("5")
+  end
+
 end
