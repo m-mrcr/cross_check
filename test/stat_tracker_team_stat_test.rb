@@ -53,4 +53,8 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal "Sharks", @stat_tracker.rival("5")
   end
 
+  def test_it_can_show_biggest_team_blowout
+    assert_equal 6, @stat_tracker.biggest_team_blowout("5")
+  end
+
 end
