@@ -157,6 +157,31 @@ module TeamMethods
     end
     diffs.max_by{|x|x}
   end
+
+  def head_to_head(input)
+    head_to_head = Hash.new
+    all_opponents(input).each do |opponent|
+      opp = @teams.find {|t| t.team_id == opponent}
+      shared_games = []
+      @games.each do |game|
+        if game.away_team_id == input && game.home_team_id == opponent
+          shared_games << game
+        elsif game.away_team_id == opponent && game.home_team_id == input
+          shared_games << game
+        end
+      end
+      wins = []
+      shared_games.each do |game|
+        if game.away_team_id == input && game.outcome.include?("away")
+          wins.push(game)
+        elsif game.home_team_id == input && game.outcome.include?("home")
+          wins.push(game)
+        end
+      end
+      head_to_head[opp.team_name] = (wins.count.to_f/shared_games.count).round(2)
+    end
+    head_to_head
+  end
 #---
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
