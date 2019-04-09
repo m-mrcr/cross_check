@@ -28,4 +28,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Predators", @stat_tracker.worst_offense
   end
 
+  def test_can_return_team_with_best_defense
+    assert_equal "Sharks", @stat_tracker.best_defense
+  end
+
 end
