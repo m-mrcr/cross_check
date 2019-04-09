@@ -39,6 +39,11 @@ module LeagueMethods
     final[0]
   end
 
+  def lowest_scoring_home_team
+    final = average_home_goals_by_team.min_by{|team, average| average}
+    final[0]
+  end
+
   #---
 
   def teamnames(id)
