@@ -14,6 +14,11 @@ module LeagueMethods
     teamnames(best_team[0])
   end
 
+  def best_defense
+    final = average_opponent_goals.min_by{|team, average| average}
+    final[0]
+  end
+
   #---
 
   def group_by_team
@@ -32,6 +37,28 @@ module LeagueMethods
     average
   end
 
+  def average_opponent_goals
+    average_opponent_goals = Hash.new
+    @teams.each do |team|
+      relevant_games = []
+      @games.each do |game|
+        if game.away_team_id == team.team_id || game.home_team_id == team.team_id
+          relevant_games.push(game)
+        end
+      end
+      opponent_goals = []
+      relevant_games.each do |game|
+        if game.away_team_id != team.team_id
+          opponent_goals << game.away_goals
+        elsif game.home_team_id != team.team_id
+          opponent_goals << game.home_goals
+        end
+      end
+      average = (opponent_goals.sum.to_f/opponent_goals.count).round(2)
+      average_opponent_goals[team.team_name] = average
+    end
+    average_opponent_goals
+  end
 
 
 end
