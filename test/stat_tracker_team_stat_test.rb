@@ -37,4 +37,8 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal 0.56, @stat_tracker.average_win_percentage("5")
   end
 
+  def test_it_can_show_most_goals_scored_by_a_single_team_in_a_single_game
+    assert_equal 8, @stat_tracker.most_goals_scored("5")
+  end
+
 end
