@@ -49,6 +49,11 @@ module LeagueMethods
     final[0]
   end
 
+  def best_fans
+    final = fans_by_team.max_by{|team, percentage| percentage}
+    final[0].team_name
+  end
+
   #---
 
   def teamnames(id)
@@ -155,6 +160,39 @@ module LeagueMethods
       win_percentage_by_team[team.team_name] = final
     end
     win_percentage_by_team
+  end
+
+  def fans_by_team
+    fans = Hash.new
+    @teams.each do |team|
+      relevant_stats = []
+      @stats.each do |stat|
+        if stat.team_id == team.team_id
+          relevant_stats.push(stat)
+        end
+      end
+      away_wins = []
+      away_games = []
+      home_wins = []
+      home_games = []
+      relevant_stats.each do |stat|
+        if stat.hoa == "away" && stat.won == "TRUE"
+          away_wins.push(stat)
+        elsif stat.hoa == "home" && stat.won == "TRUE"
+          home_wins.push(stat)
+        end
+        if stat.hoa == "away"
+          away_games.push(stat)
+        else
+          home_games.push(stat)
+        end
+      end
+      away_win_average = (away_wins.count.to_f/away_games.count)
+      home_win_average = (home_wins.count.to_f/home_games.count)
+      final = (home_win_average - away_win_average)
+      fans[team] = final
+    end
+    fans
   end
 
 end
