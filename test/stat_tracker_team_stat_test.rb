@@ -61,4 +61,11 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal 4, @stat_tracker.worst_loss("5")
   end
 
+  def test_it_can_show_head_to_head_record_for_a_single_team
+    expected = {"Capitals"=>0.63,
+                "Predators"=>0.75,
+                "Sharks"=>0.25}
+    assert_equal expected, @stat_tracker.head_to_head("5")
+  end
+
 end
