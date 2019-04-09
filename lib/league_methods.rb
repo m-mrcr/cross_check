@@ -24,6 +24,13 @@ module LeagueMethods
     final[0]
   end
 
+  def highest_scoring_visitor
+    final = average_away_goals_by_team.max_by{|team, average| average}
+    final[0]
+  end
+
+
+
   #---
 
   def group_by_team
@@ -65,5 +72,23 @@ module LeagueMethods
     average_opponent_goals
   end
 
+  def average_away_goals_by_team
+    average_away_goals_by_team = Hash.new
+    @teams.each do |team|
+      relevant_games = []
+      @games.each do |game|
+        if game.away_team_id == team.team_id
+          relevant_games.push(game)
+        end
+      end
+      scores = []
+      relevant_games.each do |game|
+        scores.push(game.away_goals)
+      end
+      average = (scores.sum.to_f/scores.count).round(2)
+      average_away_goals_by_team[team.team_name] = average
+    end
+    average_away_goals_by_team
+  end
 
 end
