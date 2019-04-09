@@ -190,9 +190,10 @@ module TeamMethods
 #---
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
-    count_of_wins_by_season(input).map{|season, game|
+    count_of_wins_by_season(input).map do |season, game|
       percent_of_wins_by_season[season] =
-      (game.count.to_f/count_of_games_by_season[season]).round(2)}
+      (game.count.to_f/count_of_games_by_season[season]).round(2)
+    end
     percent_of_wins_by_season
   end
 
@@ -227,17 +228,18 @@ module TeamMethods
     @games.select do |game|
       game.away_team_id == input || game.home_team_id == input
     end
+  end
 
-    def all_opponents(input)
-      all_opponents = []
-      all_games(input).each do |game|
-        if game.away_team_id != input && game.home_team_id == input
-          all_opponents << game.away_team_id
-        elsif game.away_team_id == input && game.home_team_id != input
-          all_opponents << game.home_team_id
-        end
+  def all_opponents(input)
+    all_opponents = []
+    all_games(input).each do |game|
+      if game.away_team_id != input && game.home_team_id == input
+        all_opponents << game.away_team_id
+      elsif game.away_team_id == input && game.home_team_id != input
+        all_opponents << game.home_team_id
       end
-      all_opponents.uniq
     end
+    all_opponents.uniq
+  end
 
 end
