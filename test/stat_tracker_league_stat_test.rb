@@ -60,4 +60,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal "Predators", @stat_tracker.best_fans
   end
 
+  def test_can_return_team_with_worst_fans
+    assert_equal ["Capitals"], @stat_tracker.worst_fans
+  end
+
 end
