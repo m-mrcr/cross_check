@@ -9,6 +9,11 @@ module LeagueMethods
     teamnames(best_team[0])
   end
 
+  def worst_offense
+    best_team = average_goals_per_team.min_by{|x,y| y }
+    teamnames(best_team[0])
+  end
+
   #---
 
   def group_by_team
@@ -27,6 +32,6 @@ module LeagueMethods
     average
   end
 
-  
+
 
 end
