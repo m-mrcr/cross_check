@@ -19,6 +19,11 @@ module LeagueMethods
     final[0]
   end
 
+  def worst_defense
+    final = average_opponent_goals.max_by{|team, average| average}
+    final[0]
+  end
+
   #---
 
   def group_by_team
