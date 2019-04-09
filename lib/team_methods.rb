@@ -131,6 +131,32 @@ module TeamMethods
     end
     diffs.max_by{|x|x}
   end
+
+  def worst_loss(input)
+    diffs = []
+    all_opponents(input).each do |opponent|
+      shared_games = []
+      @games.each do |game|
+        if game.away_team_id == input && game.home_team_id == opponent
+          shared_games << game
+        elsif game.away_team_id == opponent && game.home_team_id == input
+          shared_games << game
+        end
+      end
+      losses = []
+      shared_games.each do |game|
+        if game.away_team_id == opponent && game.outcome.include?("away")
+          losses.push(game)
+        elsif game.home_team_id == opponent && game.outcome.include?("home")
+          losses.push(game)
+        end
+      end
+      losses.each do |game|
+        diffs << (game.away_goals - game.home_goals).abs
+      end
+    end
+    diffs.max_by{|x|x}
+  end
 #---
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
