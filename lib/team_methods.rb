@@ -79,6 +79,32 @@ module TeamMethods
     q = hash.min_by{|team, percent| percent}
     q[0]
   end
+
+  def rival(input)
+    rivals = Hash.new
+    all_opponents(input).each do |opponent|
+      shared_games = []
+      @games.each do |game|
+        if game.away_team_id == input && game.home_team_id == opponent
+          shared_games << game
+        elsif game.away_team_id == opponent && game.home_team_id == input
+          shared_games << game
+        end
+      end
+      opp_win = []
+      shared_games.each do |game|
+        if game.away_team_id == opponent && game.outcome.include?("away")
+          opp_win.push(game)
+        elsif game.home_team_id == opponent && game.outcome.include?("home")
+          opp_win.push(game)
+        end
+      end
+      opp = @teams.find {|t| t.team_id == opponent}
+      rivals[opp.team_name] = (opp_win.count.to_f/shared_games.count).round(2)
+    end
+    q = rivals.max_by{|team, percent| percent}
+    q[0]
+  end
 #---
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
