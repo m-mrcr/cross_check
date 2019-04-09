@@ -34,6 +34,11 @@ module LeagueMethods
     final[0]
   end
 
+  def lowest_scoring_visitor
+    final = average_away_goals_by_team.min_by{|team, average| average}
+    final[0]
+  end
+
   #---
 
   def teamnames(id)
