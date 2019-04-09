@@ -17,6 +17,11 @@ module TeamMethods
     final[0]
   end
 
+  def worst_season(input)
+    final = percent_of_wins_by_season(input).min_by{|season, percent| percent}
+    final[0]
+  end
+
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
     count_of_wins_by_season(input).map{|season, game|
