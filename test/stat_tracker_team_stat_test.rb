@@ -29,4 +29,8 @@ class StatTrackerTeamStatTest < MiniTest::Test
     assert_equal "20162017", @stat_tracker.best_season("5")
   end
 
+  def test_it_can_show_worst_season_for_a_single_team
+    assert_equal "20142015", @stat_tracker.worst_season("5")
+  end
+
 end
