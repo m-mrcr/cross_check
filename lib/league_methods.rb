@@ -29,9 +29,20 @@ module LeagueMethods
     final[0]
   end
 
-
+  def highest_scoring_home_team
+    final = average_home_goals_by_team.max_by{|team, average| average}
+    final[0]
+  end
 
   #---
+
+  def teamnames(id)
+    @teams.each do |team|
+      if id == team.team_id
+        return team.team_name
+      end
+    end
+  end
 
   def group_by_team
     @stats.group_by {|game| game.team_id}
@@ -89,6 +100,25 @@ module LeagueMethods
       average_away_goals_by_team[team.team_name] = average
     end
     average_away_goals_by_team
+  end
+
+  def average_home_goals_by_team
+    average_home_goals_by_team = Hash.new
+    @teams.each do |team|
+      relevant_games = []
+      @games.each do |game|
+        if game.home_team_id == team.team_id
+          relevant_games.push(game)
+        end
+      end
+      scores = []
+      relevant_games.each do |game|
+        scores.push(game.home_goals)
+      end
+      average = (scores.sum.to_f/scores.count).round(2)
+      average_home_goals_by_team[team.team_name] = average
+    end
+    average_home_goals_by_team
   end
 
 end
