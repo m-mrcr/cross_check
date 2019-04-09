@@ -1,5 +1,6 @@
 module TeamMethods
-
+  
+# Primary Methods
   def team_info(input)
     team = @teams.find {|t| t.team_id == input}
     info = Hash.new
@@ -187,12 +188,13 @@ module TeamMethods
     hash = Hash.new
 
   end
-#---
+
+# Helper Methods
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
     count_of_wins_by_season(input).map do |season, game|
       percent_of_wins_by_season[season] =
-      (game.count.to_f/count_of_games_by_season[season]).round(2)
+      (game.count.to_f/count_of_team_games_by_season(input)[season])
     end
     percent_of_wins_by_season
   end
@@ -205,11 +207,12 @@ module TeamMethods
     all_games(input).group_by{|game| game.season}
   end
 
-  def count_of_games_by_season(input)
+  def count_of_team_games_by_season(input)
     count_by_season = Hash.new
     games_by_season(input).map do |season, games|
       count_by_season[season] = games.count
     end
+    count_by_season
   end
 
   def games_won(input)

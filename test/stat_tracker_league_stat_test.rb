@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/league_methods'
 
 class StatTrackerLeagueStatTest < MiniTest::Test
 
