@@ -20,4 +20,8 @@ class StatTrackerLeagueStatTest < MiniTest::Test
     assert_equal 4, @stat_tracker.count_of_teams
   end
 
+  def test_can_return_team_with_best_offense
+    assert_equal "Capitals", @stat_tracker.best_offense
+  end
+
 end
