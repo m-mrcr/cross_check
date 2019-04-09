@@ -182,6 +182,11 @@ module TeamMethods
     end
     head_to_head
   end
+
+  def seasonal_summary(input)
+    hash = Hash.new
+
+  end
 #---
   def percent_of_wins_by_season(input)
     percent_of_wins_by_season = Hash.new
