@@ -318,4 +318,11 @@ module TeamMethods
     (collection.count.nonzero? || 1)).round(2)
   end
 
+  def team_relevant_games(collection, team)
+    input.find_all do |game|
+      game.away_team_id == team.team_id ||
+      game.home_team_id == team.team_id
+    end
+  end
+
 end
